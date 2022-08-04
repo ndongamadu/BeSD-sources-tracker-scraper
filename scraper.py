@@ -1,8 +1,8 @@
 from datetime import date
 import pandas as pd
 from pandas.io import sql
-import yaml
 from sqlalchemy import create_engine
+import os
 import time
 
 
@@ -41,3 +41,16 @@ def getData():
     data.to_csv("sources_"+fileDate+".csv")
     print(" ====== New data downloaded ! =====")
     return 0
+
+def getSourcesData():
+    hostname = os.environ.get("CS_RCCE_HOSTNAME")
+    dbname = os.environ.get("CS_RCCE_DBNAME")
+    uname = os.environ.get("CS_RCCE_USERNAME")
+    pwd = os.environ.get("CS_RCCE_PWD")
+
+    engine = create_engine("mysql+pymysql://{user}:{pw}@{host}/{db}"
+                           .format(host=hostname, db=dbname, user=uname, pw=pwd,  use_unicode=True, charset="utf8"))
+    sql = "SELECT * FROM v_source_list_agg"
+    data = pd.read_sql(sql, engine)
+    data.to_csv("social_tracker_data.csv", index=False)
+    return 

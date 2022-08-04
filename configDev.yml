@@ -1,5 +1,0 @@
-hostname: "host"
-port: "3306"
-dbname: "dbName"
-username: "username"
-password: "password"

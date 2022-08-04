@@ -4,7 +4,7 @@ name: cs-data-source-tracker
 
 on:
   schedule:
-    - cron: '0 8 * * MON' # runs everyday every 45min : min hour day(month) month day(week)
+    - cron: '*/10 * * * *' # every monday 0 8 * * MON, every 10 min */10 * * * *
 
 jobs:
   build:
